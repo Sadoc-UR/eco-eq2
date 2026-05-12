@@ -64,24 +64,40 @@ function renderCartPage() {
 }
 
 function applyThemeFromPreferences() {
+    const themeBtn = document.getElementById('theme-toggle');
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-        document.body.setAttribute('data-theme', 'dark');
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            if (themeBtn) themeBtn.innerHTML = '☀️ Cambiar a Modo Claro';
+        } else {
+            document.body.removeAttribute('data-theme');
+            if (themeBtn) themeBtn.innerHTML = '🌙 Cambiar a Modo Oscuro';
+        }
+    };
+
+    if (savedTheme) {
+        applyTheme(savedTheme);
     } else {
-        document.body.removeAttribute('data-theme');
+        applyTheme(prefersDark ? 'dark' : 'light');
     }
 
     if (window.matchMedia) {
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
             if (!localStorage.getItem('theme')) {
-                if (e.matches) {
-                    document.body.setAttribute('data-theme', 'dark');
-                } else {
-                    document.body.removeAttribute('data-theme');
-                }
+                applyTheme(e.matches ? 'dark' : 'light');
             }
+        });
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
         });
     }
 }
@@ -158,6 +174,21 @@ async function handleCheckout() {
 document.addEventListener('DOMContentLoaded', () => {
     applyThemeFromPreferences();
     renderCartPage();
+
+    // Menú desplegable del usuario
+    const userChip = document.getElementById('user-chip');
+    const userDropdown = document.getElementById('user-dropdown');
+    if (userChip && userDropdown) {
+        userChip.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+            if (!userChip.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+    }
 
     document.getElementById('login-btn')?.addEventListener('click', (e) => {
         e.preventDefault();

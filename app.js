@@ -190,10 +190,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyTheme = (theme) => {
         if (theme === 'dark') {
             document.body.setAttribute('data-theme', 'dark');
-            themeBtn.textContent = '☀️';
+            if (themeBtn) themeBtn.innerHTML = '☀️ Cambiar a Modo Claro';
         } else {
             document.body.removeAttribute('data-theme');
-            themeBtn.textContent = '🌙';
+            if (themeBtn) themeBtn.innerHTML = '🌙 Cambiar a Modo Oscuro';
         }
     };
 
@@ -241,6 +241,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('quick-view-modal')?.addEventListener('click', (e) => {
         if(e.target.id === 'quick-view-modal') closeModal();
     });
+
+    // Menú desplegable del usuario
+    const userChip = document.getElementById('user-chip');
+    const userDropdown = document.getElementById('user-dropdown');
+    if (userChip && userDropdown) {
+        userChip.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+            if (!userChip.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+    }
 
     document.getElementById('login-btn')?.addEventListener('click', (e) => {
         e.preventDefault();

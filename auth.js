@@ -86,15 +86,17 @@ async function handleCallback() {
 
 async function updateUi() {
     const loginBtn = document.getElementById('login-btn');
-    const logoutBtn = document.getElementById('logout-btn');
     const userChip = document.getElementById('user-chip');
     const userName = document.getElementById('user-name');
     const userAvatar = document.getElementById('user-avatar');
-    if (!loginBtn || !logoutBtn) return;
+    // Nuevos elementos
+    const dropdownName = document.getElementById('dropdown-name');
+    const dropdownEmail = document.getElementById('dropdown-email');
+    
+    if (!loginBtn) return;
 
     const isAuthed = Boolean(localStorage.getItem(STORAGE_KEYS.idToken));
     loginBtn.classList.toggle('hidden', isAuthed);
-    logoutBtn.classList.toggle('hidden', !isAuthed);
 
     if (userChip && userName && userAvatar) {
         userChip.classList.toggle('hidden', !isAuthed);
@@ -103,6 +105,9 @@ async function updateUi() {
             const displayName = profile?.name || 'Usuario';
             userName.textContent = displayName;
             userAvatar.textContent = displayName.charAt(0).toUpperCase();
+            
+            if (dropdownName) dropdownName.textContent = displayName;
+            if (dropdownEmail) dropdownEmail.textContent = profile?.email || 'Sin correo asociado';
         }
     }
 }

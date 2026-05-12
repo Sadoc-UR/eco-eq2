@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Commerce UAQ | Tienda en Línea</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
+    <!-- <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>"> -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <a href="index.html" class="logo">Tienda UAQ</a>
         <div class="nav-links">
-            <button id="theme-toggle" class="icon-btn">🌙</button>
             <a href="cart.html">🛒 <span id="cart-count">0</span></a>
-            <div id="user-chip" class="user-chip hidden">
-                <span id="user-avatar" class="user-avatar">U</span>
-                <span id="user-name" class="user-name">Usuario</span>
+            <div class="user-menu-container">
+                <div id="user-chip" class="user-chip hidden" style="cursor: pointer;">
+                    <span id="user-avatar" class="user-avatar">U</span>
+                    <span id="user-name" class="user-name">Usuario</span>
+                </div>
+                <!-- Menú desplegable -->
+                <div id="user-dropdown" class="user-dropdown hidden">
+                    <div class="dropdown-info">
+                        <p id="dropdown-name" class="dropdown-name">Usuario</p>
+                        <p id="dropdown-email" class="dropdown-email">usuario@correo.com</p>
+                    </div>
+                    <div class="dropdown-actions">
+                        <button id="theme-toggle" class="dropdown-btn">⚙️ Config: Cambiar Tema</button>
+                        <button id="logout-btn" class="dropdown-btn logout-btn">🚪 Cerrar Sesión</button>
+                    </div>
+                </div>
             </div>
             <a id="login-btn" href="#">Login</a>
-            <a id="logout-btn" href="#" class="hidden">Logout</a>
         </div>
     </header>
 
