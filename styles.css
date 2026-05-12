@@ -221,7 +221,7 @@ main { max-width: 1200px; margin: 2.5rem auto 4rem; padding: 0 5%; }
 .filter-btn.active { background: var(--primary); color: var(--bg); border-color: var(--primary); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
 
 /* Productos */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 2.5rem; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.5rem; }
 
 .product-card {
     background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
