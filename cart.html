@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Carrito | E-Commerce UAQ</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Tienda UAQ</a>
+        <div class="nav-links">
+            <a href="index.html">Volver al Catálogo</a>
+            <div id="user-chip" class="user-chip hidden">
+                <span id="user-avatar" class="user-avatar">U</span>
+                <span id="user-name" class="user-name">Usuario</span>
+            </div>
+            <a id="login-btn" href="#">Login</a>
+            <a id="logout-btn" href="#" class="hidden">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="cart-hero">
+            <div>
+                <p class="eyebrow">Resumen de compra</p>
+                <h2 class="cart-title">Tu Carrito</h2>
+                <p class="cart-subtitle">Revisa tus piezas seleccionadas antes de continuar al pago.</p>
+            </div>
+        </section>
+
+        <div id="cart-container">
+            <!-- Items cargados por cart-page.js -->
+        </div>
+
+        <div class="cart-summary">
+            <p>Total: <span id="cart-total">$0</span></p>
+            <button id="checkout-btn">Proceder al Pago Seguro</button>
+        </div>
+    </main>
+
+    <!-- Modal de Compra Exitosa -->
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content success-modal-content">
+            <div class="success-icon">✓</div>
+            <h2>¡Compra Exitosa!</h2>
+            <p>Tu pedido ha sido procesado de manera segura. Nos pondremos en contacto pronto con los detalles de envío.</p>
+            <p class="order-id">Orden ID: <span id="success-order-id"></span></p>
+            <a href="index.html" class="btn-primary" style="margin-top: 2rem;">Volver al Catálogo</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Proyecto Final Ingeniería de Software - UAQ</p>
+    </footer>
+
+    <script type="module" src="cart-page.js"></script>
+</body>
+</html>

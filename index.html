@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce UAQ | Tienda en Línea</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Tienda UAQ</a>
+        <div class="nav-links">
+            <button id="theme-toggle" class="icon-btn">🌙</button>
+            <a href="cart.html">🛒 <span id="cart-count">0</span></a>
+            <div id="user-chip" class="user-chip hidden">
+                <span id="user-avatar" class="user-avatar">U</span>
+                <span id="user-name" class="user-name">Usuario</span>
+            </div>
+            <a id="login-btn" href="#">Login</a>
+            <a id="logout-btn" href="#" class="hidden">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">Tu tienda de confianza</p>
+                <h1>Bienvenido a nuestra plataforma de compras en línea.</h1>
+                <p class="hero-subtitle">Descubre nuestro amplio catálogo de productos con la mejor calidad y seguridad garantizada en cada transacción.</p>
+                <div class="hero-actions">
+                    <a href="#product-grid" class="btn-primary">Ver catálogo completo</a>
+                    <span class="hero-note">Envíos seguros a todo el país</span>
+                </div>
+            </div>
+            <div class="hero-art">
+                <div class="hero-card" id="featured-card" style="cursor: pointer; padding-bottom: 10px; height: auto;">
+                    <div class="hero-card-title">Destacado del Día</div>
+                    <div id="featured-content">
+                        <!-- Placeholder mientras carga -->
+                        <div class="hero-card-line"></div>
+                        <div class="hero-card-line short"></div>
+                    </div>
+                </div>
+                <div class="blob blob-1"></div>
+                <div class="blob blob-2"></div>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <input type="text" id="search-bar" placeholder="Buscar productos...">
+            <div id="category-filters" class="filters">
+                <button class="filter-btn active" data-category="Todos">Todos</button>
+                <button class="filter-btn" data-category="Computadoras">Computadoras</button>
+                <button class="filter-btn" data-category="Smartphones">Smartphones</button>
+                <button class="filter-btn" data-category="Audio">Audio</button>
+                <button class="filter-btn" data-category="Accesorios">Accesorios</button>
+                <button class="filter-btn" data-category="Muebles">Muebles</button>
+                <button class="filter-btn" data-category="Decoración">Decoración</button>
+                <button class="filter-btn" data-category="Iluminación">Iluminación</button>
+            </div>
+        </section>
+
+        <div id="product-grid" class="product-grid">
+            <!-- Productos generados por app.js -->
+        </div>
+    </main>
+
+    <!-- Modal de Vista Rápida -->
+    <div id="quick-view-modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="close-modal" class="close-modal">&times;</button>
+            <img id="modal-img" src="" alt="" class="modal-img">
+            <div class="modal-body">
+                <h2 id="modal-title">Título</h2>
+                <p id="modal-price" class="price">$0</p>
+                <p id="modal-desc">Descripción detallada.</p>
+                <button id="modal-add-btn">Añadir al Carrito</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor para Notificaciones Toast -->
+    <div id="toast-container"></div>
+
+    <footer>
+        <p>&copy; 2026 La cabra </p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
