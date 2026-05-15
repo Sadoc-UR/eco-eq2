@@ -1,31 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary: #1d1b19;
-    --accent: #f25c38;
-    --accent-strong: #d64a28;
-    --bg: #f6f2ed;
+    --primary: #09090b;
+    --accent: #7e22ce;
+    --accent-strong: #6b21a8;
+    --bg: #fafafa;
     --card-bg: #ffffff;
-    --text-muted: #6f6a62;
-    --border: #e4dbd3;
-    --shadow: 0 6px 16px rgba(34, 28, 23, 0.08);
-    --hover-shadow: 0 16px 28px rgba(34, 28, 23, 0.16);
-    --hero-grad: radial-gradient(circle at 20% 20%, rgba(242, 92, 56, 0.25), transparent 45%),
-        radial-gradient(circle at 80% 0%, rgba(42, 126, 102, 0.18), transparent 50%);
+    --text-muted: #71717a;
+    --border: #e4e4e7;
+    --shadow: 0 6px 16px rgba(9, 9, 11, 0.08);
+    --hover-shadow: 0 16px 28px rgba(9, 9, 11, 0.16);
+    --hero-grad: radial-gradient(circle at 20% 20%, rgba(126, 34, 206, 0.12), transparent 45%),
+        radial-gradient(circle at 80% 0%, rgba(147, 51, 234, 0.08), transparent 50%);
 }
 
 [data-theme="dark"] {
-    --primary: #f6f1eb;
-    --accent: #f79c7c;
-    --accent-strong: #f26f4f;
-    --bg: #12100f;
-    --card-bg: #1b1917;
-    --text-muted: #b5afa6;
-    --border: #2b2622;
-    --shadow: 0 10px 24px rgba(0,0,0,0.35);
-    --hover-shadow: 0 18px 34px rgba(0,0,0,0.5);
-    --hero-grad: radial-gradient(circle at 20% 20%, rgba(242, 92, 56, 0.22), transparent 45%),
-        radial-gradient(circle at 80% 0%, rgba(42, 126, 102, 0.2), transparent 50%);
+    --primary: #fafafa;
+    --accent: #9333ea;
+    --accent-strong: #a855f7;
+    --bg: #09090b;
+    --card-bg: #18181b;
+    --text-muted: #a1a1aa;
+    --border: #27272a;
+    --shadow: 0 10px 24px rgba(0,0,0,0.4);
+    --hover-shadow: 0 18px 34px rgba(0,0,0,0.6);
+    --hero-grad: radial-gradient(circle at 20% 20%, rgba(147, 51, 234, 0.2), transparent 45%),
+        radial-gradient(circle at 80% 0%, rgba(168, 85, 247, 0.15), transparent 50%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.3s, color 0.3s; }
