@@ -1,3 +1,8 @@
+import cart from './cart.js';
+import CONFIG from './config.js';
+import auth from './auth.js';
+import { showNotification } from './utils.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Inicializar auth y cart (ya se manejan en utils/auth/cart, pero verificamos si hay config)
     initTheme();
