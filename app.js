@@ -7,47 +7,6 @@ let currentCategory = 'Todos';
 let searchQuery = '';
 let products = [];
 
-// --- UI: Modal Quick View ---
-function openModal(product) {
-    const isOutOfStock = (product.stock || 0) <= 0;
-    const modal = document.getElementById('quick-view-modal');
-    document.getElementById('modal-img').src = product.image;
-    document.getElementById('modal-title').textContent = product.name;
-    document.getElementById('modal-price').textContent = `$${product.price.toLocaleString()}`;
-    
-    document.getElementById('modal-desc').innerHTML = `
-        ${product.description}
-        <br><br>
-        <strong class="${isOutOfStock ? 'stock-empty' : ''}">
-            ${isOutOfStock ? 'Producto Agotado' : `Disponibles: ${product.stock} unidades`}
-        </strong>
-    `;
-    
-    const addBtn = document.getElementById('modal-add-btn');
-    if (isOutOfStock) {
-        addBtn.textContent = 'Agotado';
-        addBtn.disabled = true;
-        addBtn.classList.add('btn-disabled');
-        addBtn.onclick = null;
-    } else {
-        addBtn.textContent = 'Añadir al Carrito';
-        addBtn.disabled = false;
-        addBtn.classList.remove('btn-disabled');
-        addBtn.onclick = () => {
-            if (cart.add(product)) {
-                showNotification(`${product.name} añadido`);
-                closeModal();
-            }
-        };
-    }
-    
-    modal.classList.remove('hidden');
-}
-
-function closeModal() {
-    document.getElementById('quick-view-modal').classList.add('hidden');
-}
-
 // --- Renderizado y Filtros ---
 function renderFeaturedProduct() {
     const featuredContainer = document.getElementById('featured-content');
@@ -68,8 +27,10 @@ function renderFeaturedProduct() {
         </div>
     `;
 
-    // Hacer que si el usuario le da clic, abra la ventana de "Vista Rápida"
-    featuredCard.onclick = () => openModal(randomProduct);
+    // Hacer que si el usuario le da clic, redirija a la página de detalles
+    featuredCard.onclick = () => {
+        window.location.href = `product.html?id=${randomProduct.id}`;
+    };
 }
 
 function renderProducts() {
@@ -80,6 +41,15 @@ function renderProducts() {
         const matchCategory = currentCategory === 'Todos' || p.category === currentCategory;
         const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
         return matchCategory && matchSearch;
+    });
+
+    // Dar prioridad a los disponibles frente a los agotados
+    filtered.sort((a, b) => {
+        const aAgotado = a.stock <= 0;
+        const bAgotado = b.stock <= 0;
+        if (aAgotado && !bAgotado) return 1;
+        if (!aAgotado && bAgotado) return -1;
+        return 0;
     });
 
     if (filtered.length === 0) {
@@ -93,7 +63,7 @@ function renderProducts() {
         <div class="product-card ${isOutOfStock ? 'out-of-stock-card' : ''}">
             <div class="product-image" style="background-image: url('${product.image}')" data-id="${product.id}">
                 ${isOutOfStock ? '<div class="out-of-stock-badge">Agotado</div>' : ''}
-                <div class="quick-view-overlay"><span>Vista Rápida</span></div>
+                <div class="quick-view-overlay"><span>Ver Detalles</span></div>
             </div>
             <div class="product-info">
                 <p class="category">${product.category}</p>
@@ -124,8 +94,7 @@ function renderProducts() {
     document.querySelectorAll('.product-image').forEach(img => {
         img.addEventListener('click', (e) => {
             const id = parseInt(e.currentTarget.dataset.id);
-            const product = products.find(p => p.id === id);
-            openModal(product);
+            window.location.href = `product.html?id=${id}`;
         });
     });
 }
@@ -151,7 +120,7 @@ async function loadProducts() {
             image: item.imagen_url,
             description: item.descripcion,
             stock: Number(item.stock || 0)
-        }));
+        })).filter(product => product.category !== 'Muebles');
     } catch (error) {
         console.error(error);
         products = [];
@@ -234,12 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
             currentCategory = e.target.dataset.category;
             renderProducts();
         });
-    });
-
-    // Modal close
-    document.getElementById('close-modal')?.addEventListener('click', closeModal);
-    document.getElementById('quick-view-modal')?.addEventListener('click', (e) => {
-        if(e.target.id === 'quick-view-modal') closeModal();
     });
 
     // Menú desplegable del usuario

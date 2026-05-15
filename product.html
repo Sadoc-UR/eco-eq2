@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Producto | Tienda UAQ</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .product-detail-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .product-detail-image-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-detail-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+            aspect-ratio: 1/1;
+        }
+
+        .product-detail-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-detail-category {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-detail-title {
+            font-size: 2.5rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .product-detail-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .product-detail-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .product-detail-stock {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: var(--border);
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            align-self: flex-start;
+        }
+
+        .product-detail-stock.out {
+            background: #ffebee;
+            color: #c0392b;
+        }
+
+        [data-theme="dark"] .product-detail-stock.out {
+            background: #4a191c;
+            color: #ff8a80;
+        }
+
+        .product-detail-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            flex: 1;
+            text-align: center;
+        }
+
+        .breadcrumb {
+            margin: 2rem 5%;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .product-detail-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .product-detail-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Tienda UAQ</a>
+        <div class="nav-links">
+            <a href="cart.html">🛒 <span id="cart-count">0</span></a>
+            <div class="user-menu-container">
+                <div id="user-chip" class="user-chip hidden" style="cursor: pointer;">
+                    <span id="user-avatar" class="user-avatar">U</span>
+                    <span id="user-name" class="user-name">Usuario</span>
+                </div>
+                <!-- Menú desplegable -->
+                <div id="user-dropdown" class="user-dropdown hidden">
+                    <div class="dropdown-info">
+                        <p id="dropdown-name" class="dropdown-name">Usuario</p>
+                        <p id="dropdown-email" class="dropdown-email">usuario@correo.com</p>
+                    </div>
+                    <div class="dropdown-actions">
+                        <button id="theme-toggle" class="dropdown-btn">⚙️ Config: Cambiar Tema</button>
+                        <button id="logout-btn" class="dropdown-btn logout-btn">🚪 Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+            <a id="login-btn" href="#">Login</a>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">← Volver a la Tienda</a>
+    </div>
+
+    <main id="product-page-container">
+        <div style="text-align: center; margin: 5rem 0;">
+            <p>Cargando información del producto...</p>
+        </div>
+    </main>
+
+    <!-- Scripts compartidos -->
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.1/dist/amazon-cognito-identity.min.js"></script>
+    <script src="config.js"></script>
+    <script src="utils.js"></script>
+    <script src="cart.js"></script>
+    <script src="auth.js"></script>
+    <script src="product.js"></script>
+</body>
+</html>
