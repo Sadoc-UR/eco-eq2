@@ -24,6 +24,7 @@
                         <p id="dropdown-email" class="dropdown-email">usuario@correo.com</p>
                     </div>
                     <div class="dropdown-actions">
+                        <button id="orders-btn" class="dropdown-btn" onclick="window.location.href='pedidos.html'">📦 Mis Pedidos</button>
                         <!-- Theme toggle added to config -->
                         <button id="theme-toggle" class="dropdown-btn">⚙️ Config: Cambiar Tema</button>
                         <button id="logout-btn" class="dropdown-btn logout-btn">🚪 Cerrar Sesión</button>
@@ -60,7 +61,10 @@
             <h2>¡Compra Exitosa!</h2>
             <p>Tu pedido ha sido procesado de manera segura. Nos pondremos en contacto pronto con los detalles de envío.</p>
             <p class="order-id">Orden ID: <span id="success-order-id"></span></p>
-            <a href="index.html" class="btn-primary" style="margin-top: 2rem;">Volver al Catálogo</a>
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <a href="index.html" class="btn-primary" style="flex: 1;">Catálogo</a>
+                <a href="pedidos.html" class="btn-primary" style="flex: 1; background: var(--card-bg); color: var(--primary); border: 1px solid var(--border);">Mis Pedidos</a>
+            </div>
         </div>
     </div>
 

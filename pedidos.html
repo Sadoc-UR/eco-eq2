@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Pedidos | Tienda UAQ</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .orders-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 5%;
+        }
+
+        .orders-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        .order-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .order-card:hover {
+            box-shadow: var(--hover-shadow);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .order-id {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-strong);
+        }
+
+        .order-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .order-total {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .order-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        [data-theme="dark"] .order-status {
+            background: #1b5e20;
+            color: #a5d6a7;
+        }
+
+        .order-items {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .order-item-img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .order-item-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .empty-orders {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px dashed var(--border);
+        }
+
+        .login-prompt {
+            text-align: center;
+            padding: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">Tienda UAQ</a>
+        <div class="nav-links">
+            <a href="index.html">Volver al Catálogo</a>
+            <div class="user-menu-container">
+                <div id="user-chip" class="user-chip hidden" style="cursor: pointer;">
+                    <span id="user-avatar" class="user-avatar">U</span>
+                    <span id="user-name" class="user-name">Usuario</span>
+                </div>
+                <div id="user-dropdown" class="user-dropdown hidden">
+                    <div class="dropdown-info">
+                        <p id="dropdown-name" class="dropdown-name">Usuario</p>
+                        <p id="dropdown-email" class="dropdown-email">usuario@correo.com</p>
+                    </div>
+                    <div class="dropdown-actions">
+                        <button id="theme-toggle" class="dropdown-btn">⚙️ Config: Cambiar Tema</button>
+                        <button id="logout-btn" class="dropdown-btn logout-btn">🚪 Cerrar Sesión</button>
+                    </div>
+                </div>
+            </div>
+            <a id="login-btn" href="#">Login</a>
+        </div>
+    </header>
+
+    <main class="orders-container">
+        <h1 class="orders-title">Historial de Compras</h1>
+        <div id="orders-content">
+            <div style="text-align: center; padding: 3rem;">Cargando pedidos...</div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.1/dist/amazon-cognito-identity.min.js"></script>
+    <script type="module" src="pedidos.js"></script>
+</body>
+</html>
