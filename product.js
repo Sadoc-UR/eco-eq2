@@ -4,23 +4,77 @@ import auth from './auth.js';
 import { showNotification } from './utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Inicializar auth y cart (ya se manejan en utils/auth/cart, pero verificamos si hay config)
     initTheme();
     updateCartCount();
     loadProductDetail();
+
+    // Menú desplegable del usuario
+    const userChip = document.getElementById('user-chip');
+    const userDropdown = document.getElementById('user-dropdown');
+    if (userChip && userDropdown) {
+        userChip.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+            if (!userChip.contains(e.target) && !userDropdown.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    document.getElementById('login-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        auth.login();
+    });
+
+    document.getElementById('logout-btn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        auth.logout();
+    });
+
+    auth.init();
 });
 
+document.addEventListener('cartUpdated', updateCartCount);
+
 function initTheme() {
+    const themeBtn = document.getElementById('theme-toggle');
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.setAttribute('data-theme', 'dark');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            document.body.setAttribute('data-theme', 'dark');
+            if (themeBtn) themeBtn.innerHTML = '☀️ Cambiar a Modo Claro';
+        } else {
+            document.body.removeAttribute('data-theme');
+            if (themeBtn) themeBtn.innerHTML = '🌙 Cambiar a Modo Oscuro';
+        }
+    };
+
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else {
+        applyTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
     }
 }
 
 function updateCartCount() {
     const countElement = document.getElementById('cart-count');
     if (countElement) {
-        countElement.textContent = cart.getTotalItems();
+        const items = cart.getContents();
+        const total = items.reduce((acc, item) => acc + item.quantity, 0);
+        countElement.textContent = total;
     }
 }
 
