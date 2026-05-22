@@ -116,7 +116,7 @@ async function updateUi() {
             if (dropdownEmail) dropdownEmail.textContent = profile?.email || 'Sin correo asociado';
 
             // Actualizar bienvenida
-            if (heroTitle) heroTitle.textContent = `¡Bienvenido(a), ${displayName}!`;
+            if (heroTitle) heroTitle.textContent = `¡Bienvenido, ${displayName}!`;
             if (heroSubtitle) heroSubtitle.textContent = 'Nos alegra verte de nuevo. Explora lo último en nuestro catálogo exclusivo para ti.';
             if (heroEyebrow) heroEyebrow.textContent = 'Hola de nuevo';
         } else {
