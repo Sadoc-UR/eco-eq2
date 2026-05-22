@@ -3,15 +3,16 @@
 const currentOrigin = window.location.origin;
 
 const CONFIG = {
-    // URL de tu backend en EC2. Como ya usamos nip.io con HTTPS, NO necesitas cambiar esto al subir a S3.
+    // --- AWS EC2 / API GATEWAY CONFIGURATION ---
+    // Cambia esta URL si usas una nueva instancia EC2, un Application Load Balancer o un API Gateway.
     API_URL: 'https://52.200.111.100.nip.io', 
     
     // --- AWS COGNITO CONFIGURATION ---
-    // Si algún día creas otro User Pool o usas otra cuenta de AWS, cambia estos valores:
-    COGNITO_REGION: 'us-east-1',
-    COGNITO_USER_POOL_ID: 'us-east-1_gXHISpjx9', // Cambiar si creas un User Pool nuevo
-    COGNITO_CLIENT_ID: '6bnufkn09clee3f90m1uo38ev2', // Cambiar si creas una nueva App Client
-    COGNITO_DOMAIN: 'https://us-east-1gxhispjx9.auth.us-east-1.amazoncognito.com',
+    // Si creas un nuevo grupo de usuarios (User Pool) en Cognito, debes actualizar estas 4 variables:
+    COGNITO_REGION: 'us-east-1', // Región de AWS (ej: us-east-1, us-west-2)
+    COGNITO_USER_POOL_ID: 'us-east-1_gXHISpjx9', // ID del nuevo User Pool en Cognito
+    COGNITO_CLIENT_ID: '6bnufkn09clee3f90m1uo38ev2', // ID del cliente de la aplicación (App Client ID)
+    COGNITO_DOMAIN: 'https://us-east-1gxhispjx9.auth.us-east-1.amazoncognito.com', // Dominio configurado en Cognito
 
     // --- AL SUBIR A S3 / CLOUDFRONT ---
     // El frontend detectará solo la URL, pero TÚ DEBES ir a la consola de AWS Cognito y agregar

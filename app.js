@@ -21,7 +21,7 @@ function renderFeaturedProduct() {
     // Inyectar el HTML con la imagen y el precio
     featuredContainer.innerHTML = `
         <div style="margin-top: 12px; text-align: center;">
-            <img src="${randomProduct.image}" alt="${randomProduct.name}" style="width: 100%; height: 140px; object-fit: cover; border-radius: 6px; margin-bottom: 8px;">
+            <img src="${randomProduct.image}" alt="${randomProduct.name}" style="width: 100%; height: 140px; object-fit: contain; border-radius: 6px; margin-bottom: 8px; background-color: #fff;">
             <h4 style="font-size: 0.95rem; margin: 0; color: var(--text-color);">${randomProduct.name}</h4>
             <p style="font-size: 0.95rem; font-weight: bold; color: var(--primary-color); margin: 4px 0 0 0;">$${randomProduct.price.toLocaleString()}</p>
         </div>
@@ -120,7 +120,7 @@ async function loadProducts() {
             image: item.imagen_url,
             description: item.descripcion,
             stock: Number(item.stock || 0)
-        })).filter(product => product.category !== 'Muebles');
+        }));
     } catch (error) {
         console.error(error);
         products = [];

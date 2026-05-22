@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Carrito | E-Commerce UAQ</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
+    <title>Tu Carrito | Fractal Store</title>
+    <link rel="icon" href="https://e-commerce-e2.s3.us-east-1.amazonaws.com/incono_web.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">Tienda UAQ</a>
+        <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 8px;">
+            <img src="https://e-commerce-e2.s3.us-east-1.amazonaws.com/logo.png" alt="Fractal Logo" style="height: 35px; width: auto; object-fit: contain;">
+            Fractal
+        </a>
         <div class="nav-links">
             <a href="index.html">Volver al Catálogo</a>
             <div class="user-menu-container">
@@ -68,8 +71,37 @@
         </div>
     </div>
 
+    <!-- Modal de Pago Falso (Simulación) -->
+    <div id="payment-modal" class="modal hidden">
+        <div class="modal-content" style="max-width: 400px; padding: 2rem; border-radius: 12px; position: relative;">
+            <button id="close-payment-modal" style="position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-color);">×</button>
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary);">Datos de Pago</h2>
+            <form id="mock-payment-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <label style="display: block; font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-muted);">Número de Tarjeta</label>
+                    <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--input-bg); color: var(--text-color);">
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <div style="flex: 1;">
+                        <label style="display: block; font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-muted);">Vencimiento (MM/AA)</label>
+                        <input type="text" placeholder="MM/AA" maxlength="5" required style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--input-bg); color: var(--text-color);">
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="display: block; font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-muted);">CVC</label>
+                        <input type="text" placeholder="123" maxlength="4" required style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--input-bg); color: var(--text-color);">
+                    </div>
+                </div>
+                <div>
+                    <label style="display: block; font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--text-muted);">Nombre en la tarjeta</label>
+                    <input type="text" placeholder="TITULAR DE LA TARJETA" required style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; background: var(--input-bg); color: var(--text-color); text-transform: uppercase;">
+                </div>
+                <button type="submit" id="confirm-payment-btn" class="btn-primary" style="margin-top: 1rem; padding: 14px; font-size: 1rem; border-radius: 8px;">Pagar ahora</button>
+            </form>
+        </div>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Proyecto Final Ingeniería de Software - UAQ</p>
+        <p>&copy; 2026 Fractal Store</p>
     </footer>
 
     <script type="module" src="cart-page.js"></script>

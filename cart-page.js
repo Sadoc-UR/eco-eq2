@@ -111,20 +111,25 @@ async function handleCheckout() {
     }
 
     const token = await auth.getAccessToken();
-    const user = auth.getProfile();
-
+    
     if (!token) {
         showNotification("¡Debes iniciar sesión para finalizar la compra!", "error");
-        // Optativamente, podríamos redireccionar para loguearse:
-        // setTimeout(() => auth.login(), 2000);
         return;
     }
 
-    try {
-        const checkoutBtn = document.getElementById('checkout-btn');
-        checkoutBtn.textContent = 'Procesando...';
-        checkoutBtn.disabled = true;
+    // En lugar de procesar directo, mostramos el modal de pago "falso"
+    const paymentModal = document.getElementById('payment-modal');
+    if (paymentModal) {
+        paymentModal.classList.remove('hidden');
+    }
+}
 
+async function processActualCheckout() {
+    const items = cart.getContents();
+    const token = await auth.getAccessToken();
+    const user = auth.getProfile();
+
+    try {
         const total = items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
         const response = await fetch(`${CONFIG.API_URL}/api/checkout`, {
@@ -151,7 +156,10 @@ async function handleCheckout() {
         cart.clear();
         renderCartPage();
 
-        // Mostrar el modal de éxito en lugar del alert
+        // Ocultar modal de pago y mostrar modal de éxito
+        const paymentModal = document.getElementById('payment-modal');
+        if (paymentModal) paymentModal.classList.add('hidden');
+
         const successModal = document.getElementById('success-modal');
         const orderIdSpan = document.getElementById('success-order-id');
         if (successModal && orderIdSpan) {
@@ -164,10 +172,12 @@ async function handleCheckout() {
     } catch (error) {
         console.error("Error al procesar la compra:", error);
         showNotification("Hubo un error al procesar tu compra: " + error.message, "error");
-    } finally {
-        const checkoutBtn = document.getElementById('checkout-btn');
-        checkoutBtn.textContent = 'Proceder al Pago Seguro';
-        checkoutBtn.disabled = false;
+        
+        const confirmBtn = document.getElementById('confirm-payment-btn');
+        if (confirmBtn) {
+            confirmBtn.textContent = 'Pagar ahora';
+            confirmBtn.disabled = false;
+        }
     }
 }
 
@@ -205,5 +215,38 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', handleCheckout);
+    }
+    
+    // Lógica del modal de pago mock
+    const paymentModal = document.getElementById('payment-modal');
+    const closePaymentModal = document.getElementById('close-payment-modal');
+    const mockPaymentForm = document.getElementById('mock-payment-form');
+
+    if (closePaymentModal && paymentModal) {
+        closePaymentModal.addEventListener('click', () => {
+            paymentModal.classList.add('hidden');
+        });
+    }
+
+    if (mockPaymentForm) {
+        mockPaymentForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Evitar que el formulario recargue la página
+            
+            const submitBtn = document.getElementById('confirm-payment-btn');
+            submitBtn.textContent = 'Procesando...';
+            submitBtn.disabled = true;
+
+            // Simular un tiempo de procesamiento del "banco"
+            setTimeout(() => {
+                submitBtn.textContent = 'Pago correcto';
+                submitBtn.style.backgroundColor = '#10b981'; // Verde de éxito
+                
+                // Después de 1 segundo extra, procedemos con la petición a la BD real
+                setTimeout(() => {
+                    processActualCheckout();
+                }, 1000);
+
+            }, 2000);
+        });
     }
 });
