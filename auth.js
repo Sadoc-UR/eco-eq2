@@ -93,6 +93,11 @@ async function updateUi() {
     const dropdownName = document.getElementById('dropdown-name');
     const dropdownEmail = document.getElementById('dropdown-email');
     
+    // Elementos del Hero
+    const heroTitle = document.getElementById('hero-title');
+    const heroSubtitle = document.getElementById('hero-subtitle');
+    const heroEyebrow = document.getElementById('hero-eyebrow');
+    
     if (!loginBtn) return;
 
     const isAuthed = Boolean(localStorage.getItem(STORAGE_KEYS.idToken));
@@ -100,14 +105,25 @@ async function updateUi() {
 
     if (userChip && userName && userAvatar) {
         userChip.classList.toggle('hidden', !isAuthed);
+        const profile = getProfileFromToken();
+        const displayName = profile?.name || 'Usuario';
+
         if (isAuthed) {
-            const profile = getProfileFromToken();
-            const displayName = profile?.name || 'Usuario';
             userName.textContent = displayName;
             userAvatar.textContent = displayName.charAt(0).toUpperCase();
             
             if (dropdownName) dropdownName.textContent = displayName;
             if (dropdownEmail) dropdownEmail.textContent = profile?.email || 'Sin correo asociado';
+
+            // Actualizar bienvenida
+            if (heroTitle) heroTitle.textContent = `¡Bienvenido(a), ${displayName}!`;
+            if (heroSubtitle) heroSubtitle.textContent = 'Nos alegra verte de nuevo. Explora lo último en nuestro catálogo exclusivo para ti.';
+            if (heroEyebrow) heroEyebrow.textContent = 'Hola de nuevo';
+        } else {
+            // Restablecer textos por defecto si no está logueado
+            if (heroTitle) heroTitle.textContent = 'Bienvenido a nuestra plataforma de compras en línea.';
+            if (heroSubtitle) heroSubtitle.textContent = 'Descubre nuestro amplio catálogo de productos con la mejor calidad y seguridad garantizada en cada transacción.';
+            if (heroEyebrow) heroEyebrow.textContent = 'Tu tienda de confianza';
         }
     }
 }
